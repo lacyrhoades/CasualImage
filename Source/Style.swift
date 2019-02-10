@@ -364,6 +364,21 @@ public class Style {
         return Style.text(text, alignment: alignment, size: size, color: .white)
     }
 
+    public class func circleButtonText(_ text: String, _ color: UIColor = Style.defaultUIColor) -> NSAttributedString? {
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = .center
+        paragraph.lineBreakMode = .byTruncatingTail
+        
+        let fontSize: CGFloat = UI_USER_INTERFACE_IDIOM() == .pad ? 42.0 : 18.0
+        
+        return Style.attributedString(text, withAttributes: [
+            .font: UIFont.systemFont(ofSize: fontSize, weight: .light),
+            .foregroundColor: color,
+            .paragraphStyle: paragraph
+            ]
+        )
+    }
+    
     public class func text(_ text: String, alignment: NSTextAlignment, size: TextSize, color: UIColor) -> NSAttributedString? {
 
         let paragraph = NSMutableParagraphStyle()
