@@ -379,7 +379,7 @@ public class Style {
         )
     }
     
-    public class func text(_ text: String, alignment: NSTextAlignment, size: TextSize, color: UIColor) -> NSAttributedString? {
+    public class func text(_ text: String, alignment: NSTextAlignment, size: TextSize, color: UIColor, weight: UIFont.Weight = .regular) -> NSAttributedString? {
 
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = alignment
@@ -403,7 +403,7 @@ public class Style {
         }
 
         return Style.attributedString(text, withAttributes: [
-            .font: UIFont.systemFont(ofSize: fontSize),
+            .font: UIFont.systemFont(ofSize: fontSize, weight: weight),
             .foregroundColor: color,
             .paragraphStyle: paragraph
         ])

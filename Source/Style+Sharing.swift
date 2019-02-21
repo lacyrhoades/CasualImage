@@ -103,6 +103,7 @@ extension Style {
             .font: UIFont.systemFont(ofSize: 28.0),
             .paragraphStyle: paragraph,
             .foregroundColor: UIColor.white
-            ])
+            ]
+        )
     }
 }
