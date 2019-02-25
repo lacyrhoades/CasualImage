@@ -188,11 +188,7 @@ public class Style {
     }
     
     public static var loginPromoHeight: CGFloat {
-        if UI_USER_INTERFACE_IDIOM() == .pad {
-            return 600
-        }
-
-        return 400
+        return 600
     }
 
     public static var loginHeroHeight: CGFloat {
@@ -379,6 +375,90 @@ public class Style {
         )
     }
     
+    public static func add(
+        to existingString: NSMutableAttributedString,
+        stringList: [String],
+                    alignment: NSTextAlignment,
+                    size: TextSize,
+                    color: UIColor,
+                    bullet: String = "\u{2022}",
+                    bulletColor: UIColor? = nil,
+                    paragraphSpacing: CGFloat = 12,
+                    weight: UIFont.Weight = .regular
+        ) -> NSAttributedString {
+        
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = alignment
+        paragraph.lineBreakMode = .byTruncatingTail
+        
+        var fontSize: CGFloat
+        var indentation: CGFloat
+        var lineSpacing: CGFloat
+        
+        switch size {
+        case .small:
+            fontSize = UI_USER_INTERFACE_IDIOM() == .pad ? 16.0 : 14.0
+            indentation = 20.0
+            lineSpacing = 1.0
+        case .galleryText:
+            fontSize = UI_USER_INTERFACE_IDIOM() == .pad ? 28.0 : 18.0
+            indentation = 20.0
+            lineSpacing = 1.0
+        case .medium:
+            fontSize = UI_USER_INTERFACE_IDIOM() == .pad ? 32.0 : 22.0
+            indentation = 20.0
+            lineSpacing = 1.0
+        case .large:
+            fontSize = UI_USER_INTERFACE_IDIOM() == .pad ? 42.0 : 38.0
+            indentation = 20.0
+            lineSpacing = 1.0
+        case .extraLarge:
+            fontSize = UI_USER_INTERFACE_IDIOM() == .pad ? 48.0 : 38.0
+            indentation = 20.0
+            lineSpacing = 1.0
+        case .screenSaverBig:
+            fontSize = UI_USER_INTERFACE_IDIOM() == .pad ? 128.0 : 128.0
+            indentation = 20.0
+            lineSpacing = 1.0
+        }
+        
+        let font = UIFont.systemFont(ofSize: fontSize, weight: weight)
+        
+        let textAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color]
+        let bulletAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: bulletColor ?? color]
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        let nonOptions = [NSTextTab.OptionKey: Any]()
+        paragraphStyle.tabStops = [
+            NSTextTab(textAlignment: .left, location: indentation, options: nonOptions)]
+        paragraphStyle.defaultTabInterval = indentation
+        paragraphStyle.lineSpacing = lineSpacing
+        paragraphStyle.paragraphSpacing = paragraphSpacing
+        paragraphStyle.headIndent = indentation
+        // paragraphStyle.firstLineHeadIndent = 0
+        // paragraphStyle.tailIndent = 1
+        
+        for string in stringList {
+            let formattedString = "\t\(bullet)\t\(string)\n"
+            let attributedString = NSMutableAttributedString(string: formattedString)
+            
+            attributedString.addAttributes(
+                [NSAttributedString.Key.paragraphStyle : paragraphStyle],
+                range: NSMakeRange(0, attributedString.length))
+            
+            attributedString.addAttributes(
+                textAttributes,
+                range: NSMakeRange(0, attributedString.length))
+            
+            let string:NSString = NSString(string: formattedString)
+            let rangeForBullet:NSRange = string.range(of: bullet)
+            attributedString.addAttributes(bulletAttributes, range: rangeForBullet)
+            existingString.append(attributedString)
+        }
+        
+        return existingString
+    }
+    
     public class func text(_ text: String, alignment: NSTextAlignment, size: TextSize, color: UIColor, weight: UIFont.Weight = .regular) -> NSAttributedString? {
 
         let paragraph = NSMutableParagraphStyle()
@@ -401,9 +481,11 @@ public class Style {
         case .screenSaverBig:
             fontSize = UI_USER_INTERFACE_IDIOM() == .pad ? 128.0 : 128.0
         }
+        
+        let font = UIFont.systemFont(ofSize: fontSize, weight: weight)
 
         return Style.attributedString(text, withAttributes: [
-            .font: UIFont.systemFont(ofSize: fontSize, weight: weight),
+            .font: font,
             .foregroundColor: color,
             .paragraphStyle: paragraph
         ])
