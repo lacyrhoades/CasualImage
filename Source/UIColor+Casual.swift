@@ -6,7 +6,7 @@ extension UIColor {
     }
     
     public static var experimentalColor: UIColor {
-        return UIColor(red: 255.0/255.0, green: 69.0/255.0, blue: 108.0/255.0, alpha: 1)
+        return UIColor(red: 69.0/255.0, green: 69.0/255.0, blue: 69.0/255.0, alpha: 1)
     }
 
     public static var customGray: UIColor {
