@@ -12,7 +12,7 @@ extension Style {
     }
 
     public static var messageLabelLargeFontSize: CGFloat {
-        return 168.0
+        return 128.0
     }
 
     public static var messageLabelSmallFontSize: CGFloat {

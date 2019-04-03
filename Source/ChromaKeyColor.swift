@@ -14,15 +14,12 @@ public struct ChromaKeyColor: Codable {
         return UIColor(red: CGFloat(self.red), green: CGFloat(self.green), blue: CGFloat(self.blue), alpha: 1.0)
     }
 
-    public init?(uiColor: UIColor?) {
-        guard let (red, green, blue) = uiColor?.rgb else {
-            return nil
-        }
-
+    public init(_ uiColor: UIColor) {
+        let (red, green, blue) = uiColor.rgb
         self.init(red: Float(red), green: Float(green), blue: Float(blue))
     }
 
-    init(red: Float, green: Float, blue: Float) {
+    public init(red: Float, green: Float, blue: Float) {
         assert(red <= 1)
         assert(green <= 1)
         assert(blue <= 1)
