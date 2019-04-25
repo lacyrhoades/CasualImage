@@ -40,15 +40,9 @@ public struct PrintOptions {
     
     public var isStrips: Bool {
         switch self.paperSize {
-        case .fiveBySevenStrips:
+        case .twoBySix:
             return true
-        case .fourBySixStrips:
-            return true
-        case .sixByNineStrips:
-            return true
-        case .sixByEightStrips:
-            return true
-        case .sixByEightFourStrips:
+        case .twoAndHalfBySeven:
             return true
         default:
             return false

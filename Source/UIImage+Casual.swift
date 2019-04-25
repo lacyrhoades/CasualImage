@@ -7,12 +7,9 @@ extension UIImage {
             return UIImage()
         }
 
-        switch options.paperSize {
-        case .fourBySixStrips:
-            fallthrough
-        case .fiveBySevenStrips:
+        if options.isStrips {
             return UIImage.fourFrameStack(of: inputImages, withOptions: options)
-        default:
+        } else {
             return UIImage.makeGrid(of: inputImages, withOptions: options)
         }
     }
