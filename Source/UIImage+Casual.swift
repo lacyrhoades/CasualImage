@@ -1,6 +1,30 @@
 import CasualUtility
 
 extension UIImage {
+    public var imageDoubledForPrinter: UIImage {
+        var outputSize = self.size
+        
+        let ratio = self.ratio
+        let dx = self.size.width
+        let dy = self.size.height
+        
+        if ratio <= 1.0 {
+            outputSize = CGSize(width: outputSize.width * 2, height: outputSize.height)
+        } else {
+            outputSize = CGSize(width: outputSize.width, height: outputSize.height * 2)
+        }
+        
+        return ImageRenderUtil.renderer(forSize: outputSize).image(actions: { (context) in
+            if ratio <= 1.0 {
+                self.draw(at: CGPoint.zero)
+                self.draw(at: CGPoint(x: dx, y: 0.0))
+            } else {
+                self.draw(at: CGPoint.zero)
+                self.draw(at: CGPoint(x: 0.0, y: dy))
+            }
+        })
+    }
+    
     public static func imageByTilingImages(_ inputImages: [UIImage], withOptions options: PrintOptions) -> UIImage {
         guard inputImages.count > 0 else {
             assert(false, "Cannot tile empty array")
@@ -51,7 +75,7 @@ extension UIImage {
 
         images = UIImage.pickSelects(count: 4, fromImages: images)
 
-        let numberColumns = 2
+        let numberColumns = 1
         let numberRows = 4
         
         let cellWidth = CGFloat(outputSize.width) / CGFloat(numberColumns)
@@ -71,22 +95,18 @@ extension UIImage {
             var y: CGFloat = 0
             
             images[0].draw(in: CGRect(x: x, y: y, width: cellWidth, height: cellHeight))
-            images[0].draw(in: CGRect(x: x + cellWidth, y: y, width: cellWidth, height: cellHeight))
             
             y += cellHeight
             
             images[1].draw(in: CGRect(x: x, y: y, width: cellWidth, height: cellHeight))
-            images[1].draw(in: CGRect(x: x + cellWidth, y: y, width: cellWidth, height: cellHeight))
             
             y += cellHeight
             
             images[2].draw(in: CGRect(x: x, y: y, width: cellWidth, height: cellHeight))
-            images[2].draw(in: CGRect(x: x + cellWidth, y: y, width: cellWidth, height: cellHeight))
             
             y += cellHeight
             
             images[3].draw(in: CGRect(x: x, y: y, width: cellWidth, height: cellHeight))
-            images[3].draw(in: CGRect(x: x + cellWidth, y: y, width: cellWidth, height: cellHeight))
         })
     }
     
@@ -100,7 +120,7 @@ extension UIImage {
         images = UIImage.pickSelects(count: 4, fromImages: images)
         
         let numberColumns = 4
-        let numberRows = 2
+        let numberRows = 1
         
         let cellWidth = CGFloat(outputSize.width) / CGFloat(numberColumns)
         let cellHeight = CGFloat(outputSize.height) / CGFloat(numberRows)
@@ -119,22 +139,18 @@ extension UIImage {
             var y: CGFloat = 0
 
             images[0].draw(in: CGRect(x: x, y: y, width: cellWidth, height: cellHeight))
-            images[0].draw(in: CGRect(x: x, y: y + cellHeight, width: cellWidth, height: cellHeight))
 
             x += cellWidth
 
             images[1].draw(in: CGRect(x: x, y: y, width: cellWidth, height: cellHeight))
-            images[1].draw(in: CGRect(x: x, y: y + cellHeight, width: cellWidth, height: cellHeight))
 
             x += cellWidth
 
             images[2].draw(in: CGRect(x: x, y: y, width: cellWidth, height: cellHeight))
-            images[2].draw(in: CGRect(x: x, y: y + cellHeight, width: cellWidth, height: cellHeight))
 
             x += cellWidth
 
             images[3].draw(in: CGRect(x: x, y: y, width: cellWidth, height: cellHeight))
-            images[3].draw(in: CGRect(x: x, y: y + cellHeight, width: cellWidth, height: cellHeight))
         })
     }
 
