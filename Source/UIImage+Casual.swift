@@ -220,3 +220,53 @@ extension UIImage {
     }
 }
 
+extension UIImage {
+    public func image(byOverlaying text: String) -> UIImage {
+        var textSize: TextSize = .extraLarge
+        if self.size.width < 2000 {
+            textSize = .large
+        }
+        if self.size.width < 1000 {
+            textSize = .medium
+        }
+        let attributes: [NSAttributedString.Key: Any] = Style.attributes(alignment: .center, size: textSize, color: .white, weight: .medium)
+        let string = NSAttributedString(string: text, attributes: attributes)
+        let maxHeight: CGFloat = 200.0
+        
+        let box = string.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: maxHeight), options: .usesLineFragmentOrigin, context: nil)
+        
+        let margin: CGFloat = 12.0
+        let gradientWidth: CGFloat = 48.0
+        
+        let gradientBox = CGRect(x: self.size.width - gradientWidth - margin, y: margin, width: gradientWidth, height: self.size.height - margin * 2)
+        
+        let rightTextBackground = CGRect(x: (self.size.width - box.width - margin * 2) / 2.0, y: self.size.height - box.height - margin, width: box.width + margin * 2.0, height: box.height)
+        
+        let rightTextArea = CGRect(x: (self.size.width - box.width) / 2.0, y: self.size.height - box.height - margin, width: box.width, height: box.height)
+        
+        return ImageRenderUtil.renderer(forSize: size).image(actions: {
+            context in
+            self.draw(in: CGRect(size: self.size))
+            
+            let colors = [UIColor.white.cgColor, UIColor.black.cgColor] as CFArray
+            let colorSpace = CGColorSpaceCreateDeviceRGB()
+            
+            if let gradient = CGGradient.init(colorsSpace: colorSpace, colors: colors, locations: nil) {
+                context.cgContext.addRect(gradientBox)
+                context.cgContext.clip()
+                
+                let start = CGPoint(x: gradientBox.midX, y: gradientBox.minY)
+                let end = CGPoint(x: gradientBox.midX, y: gradientBox.maxY)
+                
+                context.cgContext.drawLinearGradient(gradient, start: start, end: end, options: CGGradientDrawingOptions())
+                
+                context.cgContext.resetClip()
+            }
+
+            context.cgContext.setFillColor(UIColor.black.withAlphaComponent(0.65).cgColor)
+            context.cgContext.fill(rightTextBackground)
+            
+            text.draw(with: rightTextArea, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
+        })
+    }
+}

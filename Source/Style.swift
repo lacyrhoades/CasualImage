@@ -201,6 +201,10 @@ public class Style {
 
     public static var tapBarHeight: CGFloat {
         if UI_USER_INTERFACE_IDIOM() == .pad {
+            if UIScreen.main.ratio > 3.0/4.0 {
+                return 148.0
+            }
+            
             return 108.0
         }
 
@@ -459,14 +463,14 @@ public class Style {
         return existingString
     }
     
-    public class func text(_ text: String, alignment: NSTextAlignment, size: TextSize, color: UIColor, weight: UIFont.Weight = .regular) -> NSAttributedString? {
-
+    public class func attributes(alignment: NSTextAlignment, size: TextSize, color: UIColor, weight: UIFont.Weight = .regular) -> [NSAttributedString.Key: Any] {
+        
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = alignment
         paragraph.lineBreakMode = .byTruncatingTail
-
+        
         var fontSize: CGFloat
-
+        
         switch size {
         case .small:
             fontSize = UI_USER_INTERFACE_IDIOM() == .pad ? 16.0 : 14.0
@@ -484,10 +488,15 @@ public class Style {
         
         let font = UIFont.systemFont(ofSize: fontSize, weight: weight)
 
-        return Style.attributedString(text, withAttributes: [
+        return [
             .font: font,
             .foregroundColor: color,
             .paragraphStyle: paragraph
-        ])
+        ]
+    }
+    
+    public class func text(_ text: String, alignment: NSTextAlignment, size: TextSize, color: UIColor, weight: UIFont.Weight = .regular) -> NSAttributedString? {
+        
+        return Style.attributedString(text, withAttributes: Style.attributes(alignment: alignment, size: size, color: color, weight: weight))
     }
 }
