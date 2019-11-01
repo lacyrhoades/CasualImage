@@ -499,4 +499,17 @@ public class Style {
         
         return Style.attributedString(text, withAttributes: Style.attributes(alignment: alignment, size: size, color: color, weight: weight))
     }
+    
+    public static var menuBlurEffectStyle: UIBlurEffect.Style {
+        if #available(iOS 13.0, *) {
+            switch UITraitCollection.current.userInterfaceStyle {
+            case .dark:
+                return UIBlurEffect.Style.dark
+            default:
+                return UIBlurEffect.Style.extraLight
+            }
+        } else {
+            return UIBlurEffect.Style.extraLight
+        }
+    }
 }
