@@ -14,7 +14,7 @@ extension CGSize {
     }
     
     public static var resolution32VideoBoundingBox: CGSize {
-        return CGSize(width: 1080.0, height: 1080.0)
+        return CGSize(width: 2160.0, height: 2160.0)
     }
     
     public static var resolution169MMSVideo: CGSize {
