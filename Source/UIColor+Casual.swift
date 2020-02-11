@@ -1,6 +1,14 @@
 import UIKit
 
 extension UIColor {
+    public static var random: UIColor {
+        let red = CGFloat(arc4random_uniform(256)) / 255.0
+        let green = CGFloat(arc4random_uniform(256)) / 255.0
+        let blue = CGFloat(arc4random_uniform(256)) / 255.0
+        
+        return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+    }
+    
     public static var customPink: UIColor {
         return UIColor(red: 236.0/255.0, green: 29.0/255.0, blue: 68.0/255.0, alpha: 1)
     }
