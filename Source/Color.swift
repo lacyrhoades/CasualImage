@@ -37,5 +37,4 @@ extension Color {
     public static let red = Color((1, 0, 0))
     public static let green = Color((0, 1, 0))
     public static let blue = Color((0, 0, 1))
-    public static let customPink = Color((236.0/255.0, 29.0/255.0, 68.0/255.0))
 }

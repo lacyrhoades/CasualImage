@@ -6,7 +6,7 @@ extension Style {
         paragraph.alignment = .center
         return Style.attributedString(string, withAttributes: [
             .font: UIFont.systemFont(ofSize: 268.0),
-            .foregroundColor: Style.defaultUIColor,
+            .foregroundColor: Style.defaultInterfaceColor,
             .paragraphStyle: paragraph,
             ])
     }
@@ -51,7 +51,7 @@ extension Style {
     public static func settingsButtonFinalText(_ string: String?) -> NSAttributedString? {
         return Style.attributedString(string, withAttributes: [
             .font: UIFont.systemFont(ofSize: 36.0, weight: .light),
-            .foregroundColor: UIColor.customPink
+            .foregroundColor: Style.defaultInterfaceColor
             ])
     }
 

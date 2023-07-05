@@ -9,10 +9,6 @@ extension UIColor {
         return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
     }
     
-    public static var customPink: UIColor {
-        return UIColor(red: 236.0/255.0, green: 29.0/255.0, blue: 68.0/255.0, alpha: 1)
-    }
-    
     public static var experimentalColor: UIColor {
         return UIColor(red: 69.0/255.0, green: 69.0/255.0, blue: 69.0/255.0, alpha: 1)
     }

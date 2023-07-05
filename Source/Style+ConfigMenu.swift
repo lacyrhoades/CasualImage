@@ -63,7 +63,7 @@ extension Style {
     public static func configPromptText(_ string: String?) -> NSAttributedString? {
         return Style.attributedString(string, withAttributes: [
             .font: UIFont.boldSystemFont(ofSize: 22.0),
-            .foregroundColor: UIColor.customPink
+            .foregroundColor: Style.defaultInterfaceColor
             ])
     }
 
@@ -107,7 +107,7 @@ extension Style {
     public static func configMenuFootnoteText(_ string: String?) -> NSAttributedString? {
         return Style.attributedString(string, withAttributes: [
             .font: UIFont.systemFont(ofSize: 18.0),
-            .foregroundColor: UIColor.customPink
+            .foregroundColor: Style.defaultInterfaceColor
             ])
     }
 
@@ -121,7 +121,7 @@ extension Style {
     public static func configMenuCancelText(_ string: String?) -> NSAttributedString? {
         return Style.attributedString(string, withAttributes: [
             .font: UIFont.systemFont(ofSize: 22.0),
-            .foregroundColor: UIColor.customPink
+            .foregroundColor: Style.defaultInterfaceColor
             ])
     }
 

@@ -11,7 +11,9 @@ public enum TextSize {
 
 public class Style {
 
-    public static var defaultUIColor: UIColor = UIColor.customPink
+    // Ideally there's no concept of a default color
+    // Yellow to advertize that the library consumer should override this
+    public static var defaultInterfaceColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 0.0/255.0, alpha: 1.0)
 
     public static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -341,7 +343,7 @@ public class Style {
 
     public class func menuButton() -> UIButton {
         let button = UIButton(type: .custom)
-        button.setTitleColor(UIColor.customPink, for: .normal)
+        button.setTitleColor(Style.defaultInterfaceColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 20.0)
         return button
     }
@@ -364,7 +366,7 @@ public class Style {
         return Style.text(text, alignment: alignment, size: size, color: .white)
     }
 
-    public class func circleButtonText(_ text: String, _ color: UIColor = Style.defaultUIColor) -> NSAttributedString? {
+    public class func circleButtonText(_ text: String, _ color: UIColor = Style.defaultInterfaceColor) -> NSAttributedString? {
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .center
         paragraph.lineBreakMode = .byTruncatingTail
