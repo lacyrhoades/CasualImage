@@ -1,12 +1,12 @@
 import UIKit
 
 extension Style {
-    public static func countdownLabelText(_ string: String?) -> NSAttributedString? {
+    public static func countdownLabelText(_ string: String, _ color: UIColor) -> NSAttributedString? {
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .center
         return Style.attributedString(string, withAttributes: [
             .font: UIFont.systemFont(ofSize: 268.0),
-            .foregroundColor: Style.defaultInterfaceColor,
+            .foregroundColor: color,
             .paragraphStyle: paragraph,
             ])
     }
@@ -19,7 +19,7 @@ extension Style {
         return 102.0
     }
 
-    public static func messageLabelText(_ string: String, color: UIColor) -> NSAttributedString? {
+    public static func messageLabelText(_ string: String, _ color: UIColor) -> NSAttributedString? {
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .center
         paragraph.lineHeightMultiple = 0.8
